@@ -1,0 +1,33 @@
+body{
+    margin-top: 120px ;
+}
+.thumbnail img{
+    width : 100% ;
+}
+
+.thumbnail{
+    padding : 0;
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0px 4px 4px -1px #999;
+}
+
+.list-group{
+     -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0px 4px 4px -1px #999;
+}
+.thumbnail .caption-full{
+    padding : 9px;
+}
+.navbar {
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
+}
+#delete-form{
+    display : inline;
+}
+#comment-delete-form{
+    display : inline; 
+}

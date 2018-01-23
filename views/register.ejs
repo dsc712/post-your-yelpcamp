@@ -1,0 +1,23 @@
+<% include partials/header  %>
+<div class="container">
+  <div class="row">
+    <h1 style="text-align:center ;"> SignUp to YelpCamp </h1>
+   
+     <div style = " width : 60% ; margin : 25px auto ;">
+
+            <form action="/register" method="POST" >
+                <div class="form-group">
+                     <input class="form-control" type="text" name="username" placeholder="username"></input>
+                </div>
+                <div class="form-group">
+                     <input class="form-control" type="password" name="password" placeholder="password"></input>
+                </div>
+                <div class="form-group">
+                     <input  type="submit" class= "btn btn-lg btn-success btn-block"></input>
+                </div>
+            </form>
+            
+     </div>
+  </div>
+</div>
+<% include partials/footer  %>
