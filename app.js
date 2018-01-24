@@ -21,8 +21,9 @@ var commentRoutes     = require("./routes/comments.js") ,
     
 //setting up the configuration - these three lines will be present in almmost all projects
 //mongoose.connect("mongodb://localhost/yelp_camp", {useMongoClient: true});
-mongoose.connect("mongodb://devyendu:d71298sc@ds113098.mlab.com:13098/yelp_camp");
+//mongoose.connect("mongodb://devyendu:d71298sc@ds113098.mlab.com:13098/yelp_camp");
 
+mongoose.connect(process.env.DATABASEURL) ;
 
 app.use(bodyParser.urlencoded( {extended : true} ) );
 app.set("view engine" , "ejs");
