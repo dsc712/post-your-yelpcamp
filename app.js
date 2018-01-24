@@ -20,7 +20,10 @@ var commentRoutes     = require("./routes/comments.js") ,
     indexRoutes        = require("./routes/index.js") ;
     
 //setting up the configuration - these three lines will be present in almmost all projects
-mongoose.connect("mongodb://localhost/yelp_camp", {useMongoClient: true});    
+//mongoose.connect("mongodb://localhost/yelp_camp", {useMongoClient: true});
+mongoose.connect("mongodb://dsc712:d71298@sc@ds113098.mlab.com:13098/yelp_camp", {useMongoClient: true});
+
+
 app.use(bodyParser.urlencoded( {extended : true} ) );
 app.set("view engine" , "ejs");
 
