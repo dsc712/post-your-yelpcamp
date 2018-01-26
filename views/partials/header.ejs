@@ -18,7 +18,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">YELPCAMP</a>
+            <a class="navbar-brand" href="/"><i class="fa fa-home" aria-hidden="true"></i> YELPCAMP</a>
         </div>
         <div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
@@ -31,12 +31,12 @@
         <div class="collapse navbar-collapse" id="bs-nav-demo">
             <ul class="nav navbar-nav navbar-right">
               <%  if(!currentUser){  %>
-                <li><a href="/login">login</a></li>
-                <li><a href="/register">Sign up</a></li>
+                <li><a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i> login</a></li>
+                <li><a href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign up</a></li>
              <%   }else{   %>
              
-                <li><a href="#">signed in as <%= currentUser.username%></a></li>
-                <li><a href="/logout">logout</a></li>
+                <li><a href="#"><i class="fa fa-user-circle-o" aria-hidden="true"></i> signed in as <%= currentUser.username%></a></li>
+                <li><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> logout</a></li>
                 
              <%    }  %>
                 <li><a href="https://github.com/dsc712/post-your-yelpcamp"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a></li>
