@@ -157,5 +157,5 @@ A place where you can post new camping sites , and even comment on other's post.
 > adding font awesome icons to my project.
 > adding github repository link to my project.
 * adding meta tag for theme-color.
-* <meta name="theme-color" content = "#222"> - it is observed in chrome 39 for android mobile only
+* meta name="theme-color" content = "#222" - it is observed in chrome 39 for android mobile only
 * add other necessary meta tags author,description and keywords .
