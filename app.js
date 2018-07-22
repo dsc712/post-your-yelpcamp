@@ -8,18 +8,82 @@ var express     = require("express") ,
     Comment     = require("./models/comments") ,    //it adds .js implicitly(in front of comments) and also (var Comment) is not a mandatory name
                                                      //all mongodb methods like find() , create() , findById() etc will be called using (var Comment)  
     passport    = require("passport"),
-LocalStrategy   = require("passport-local") ,
+    LocalStrategy   = require("passport-local") ,
+    // FacebookStrategy = require('passport-facebook').Strategy,
+    TwitterStrategy = require('passport-twitter').Strategy,
+    GithubStrategy = require('passport-github2').Strategy,
+    GoogleStrategy = require('passport-google-oauth2').Strategy,
     User        = require("./models/user"),
 methodOverride  = require("method-override"),
     flash       = require("connect-flash"),
+    auth        = require("./auth") ,
     seedDb      = require("./seeds") ;
-    
+
+// local strategy
+passport.use(new LocalStrategy(User.authenticate() )) ;
+
+// facebook strategy
+// passport.use(new FacebookStrategy({
+//         clientID: auth.facebook.clientID,
+//         clientSecret: auth.facebook.clientSecret,
+//         callbackURL: auth.facebook.callbackURL
+//     },
+//     function(accessToken, refreshToken, profile, cb) {
+//         User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+//             return cb(err, user);
+//         });
+//     }
+// ));
+
+//twitter strategy
+passport.use(new TwitterStrategy({
+        consumerKey: auth.twitter.consumerKey,
+        consumerSecret: auth.twitter.consumerSecret,
+        callbackURL: auth.twitter.callbackURL
+    },
+    function(accessToken, refreshToken, profile, done) {
+        process.nextTick(function () {
+            return done(null, profile);
+        });
+    }
+));
+
+// github strategy
+passport.use(new GithubStrategy({
+        clientID: auth.github.clientID,
+        clientSecret: auth.github.clientSecret,
+        callbackURL: auth.github.callbackURL
+    },
+    function(accessToken, refreshToken, profile, done) {
+        process.nextTick(function () {
+            return done(null, profile);
+        });
+    }
+));
+
+// google strategy
+passport.use(new GoogleStrategy({
+        clientID: auth.google.clientID,
+        clientSecret: auth.google.clientSecret,
+        callbackURL: auth.google.callbackURL,
+        passReqToCallback: true
+    },
+    function(request, accessToken, refreshToken, profile, done) {
+        process.nextTick(function () {
+            return done(null, profile);
+        });
+    }
+));
+
+
 //requiring routes    
 var commentRoutes     = require("./routes/comments.js") ,
     campgroundRoutes = require("./routes/campgrounds.js"),
     indexRoutes        = require("./routes/index.js") ;
     
 var url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp" ;
+var port = process.env.port || 5000 ;
+
 mongoose.connect(url) ;
 
 app.use(bodyParser.urlencoded( {extended : true} ) );
@@ -39,7 +103,6 @@ app.use(require("express-session")({
 app.use(express.static(__dirname + "/public")) ;
 app.use(flash()) ;
 
-passport.use(new LocalStrategy(User.authenticate() )) ;
 passport.serializeUser(User.serializeUser() ) ;
 passport.deserializeUser(User.deserializeUser() );
 
@@ -65,7 +128,7 @@ app.use(function(req , res , next){
  app.use(methodOverride("_method") ) ;
 
 //setting up the IP and PORT - mandatory for server to start listening
-app.listen(process.env.PORT,process.env.IP,function(){
+app.listen(port,process.env.IP,function(){
     console.log("server started...");
 });
 

@@ -38,7 +38,53 @@ router.get("/",function(req , res){
          }
     } ) ;
  });
- 
+
+
+router.get('/auth/facebook',
+    passport.authenticate('facebook'),
+    function(req, res){});
+
+router.get('/auth/facebook/callback',
+    passport.authenticate('facebook', { failureRedirect: '/' }),
+    function(req, res) {
+        res.redirect('/campgrounds');
+    });
+
+router.get('/auth/twitter',
+    passport.authenticate('twitter'),
+    function(req, res){});
+
+router.get('/auth/twitter/callback',
+    passport.authenticate('twitter', { failureRedirect: '/' }),
+    function(req, res) {
+        res.redirect('/campgrounds');
+    });
+
+router.get('/auth/github',
+    passport.authenticate('github'),
+    function(req, res){});
+
+router.get('/auth/github/callback',
+    passport.authenticate('github', { failureRedirect: '/' }),
+    function(req, res) {
+        res.redirect('/campgrounds');
+    });
+
+
+router.get('/auth/google',
+    passport.authenticate('google', { scope: [
+            'https://www.googleapis.com/auth/plus.login',
+            'https://www.googleapis.com/auth/plus.profile.emails.read'
+        ] }
+    ));
+
+router.get('/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/' }),
+    function(req, res) {
+        res.redirect('/campgrounds');
+    });
+
+
  //show login form
   router.get("/login",function(req , res){
     res.render("login") ;    

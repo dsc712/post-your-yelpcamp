@@ -5,7 +5,7 @@
    
      <div style = " width : 60% ; margin : 25px auto ;">
 
-            <form action="/register" method="POST" >
+            <form action="/register" method="POST" style="border : 1px solid #ddd ; padding : 50px ;" >
                 <div class="form-group">
                      <input class="form-control" type="text" name="username" placeholder="username"></input>
                 </div>
@@ -15,9 +15,20 @@
                 <div class="form-group">
                      <input  type="submit" class= "btn btn-lg btn-success btn-block"></input>
                 </div>
+                <a href="/campgrounds"><i class="fa fa-window-close" aria-hidden="true"></i> go back</a>
             </form>
-            <a href="/campgrounds"><i class="fa fa-window-close" aria-hidden="true"></i> go back</a>
+
+            <a href="/auth/google" class="btn btn-danger btn-block btn-lg" style="color : #fff !important ;">continue with <i class="fa fa-google" aria-hidden="true"></i></a>
+            <a href="/auth/github"  class="btn btn-block btn-lg" style="background : #000000 !important ; color : #fff !important ;">continue with <i class="fa fa-github" aria-hidden="true"></i></a>
+            <a href="/auth/twitter" class="btn btn-block btn-lg" style="background : #1DA1F2 !important ; color : #fff !important ;">continue with <i class="fa fa-twitter" aria-hidden="true"></i></a>
+
+
      </div>
   </div>
 </div>
+
+<!--<div style="background : #000 ; color : #fff !important; display : flex ; justify-content: center ; margin-bottom: 0px ; padding : 20px ;">-->
+    <!--<a href="https://termsfeed.com/privacy-policy/c5aef9552de31f9302ab66a680dffd0a"> privacy policy </a>-->
+<!--</div>-->
+
 <% include partials/footer  %>
