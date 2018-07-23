@@ -54,7 +54,8 @@ passport.use(new LocalStrategy(User.authenticate() )) ;
 passport.use(new TwitterStrategy({
         consumerKey: process.env.twitter_key ,
         consumerSecret: process.env.twitter_secret ,
-        callbackURL: "https://post-your-yelpcamps.herokuapp.com/auth/twitter/callback"
+        callbackURL: "https://post-your-yelpcamps.herokuapp.com/auth/twitter/callback" ,
+        passReqToCallback: true
     },
     function(accessToken, refreshToken, profile, done) {
         process.nextTick(function () {
