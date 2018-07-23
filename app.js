@@ -52,8 +52,8 @@ passport.use(new LocalStrategy(User.authenticate() )) ;
 
 //twitter strategy
 passport.use(new TwitterStrategy({
-        consumerKey: process.env.twitter_key,
-        consumerSecret: process.env.twitter_secret,
+        consumerKey: process.env.twitter_key ,
+        consumerSecret: process.env.twitter_secret ,
         callbackURL: "https://post-your-yelpcamps.herokuapp.com/auth/twitter/callback"
     },
     function(accessToken, refreshToken, profile, done) {
@@ -109,7 +109,7 @@ app.use(passport.session()) ;
 
 //midleware - this will be called after every route confirming that currentUser is passed to every template
 app.use(function(req , res , next){
-   res.locals.currentUser = req.user ; 
+   res.locals.currentUser = req.user ;
    res.locals.error = req.flash("error") ;
     res.locals.success = req.flash("success") ;
    next() ;
