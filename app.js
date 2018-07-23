@@ -82,7 +82,7 @@ var commentRoutes     = require("./routes/comments.js") ,
     indexRoutes        = require("./routes/index.js") ;
     
 var url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp" ;
-var port = process.env.port || 5000 ;
+var port = process.env.PORT || 5000 ;
 
 mongoose.connect(url) ;
 
