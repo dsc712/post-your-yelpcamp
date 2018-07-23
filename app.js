@@ -82,7 +82,6 @@ var commentRoutes     = require("./routes/comments.js") ,
     indexRoutes        = require("./routes/index.js") ;
     
 var url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp" ;
-var port = process.env.PORT || 5000 ;
 
 mongoose.connect(url) ;
 
@@ -128,7 +127,7 @@ app.use(function(req , res , next){
  app.use(methodOverride("_method") ) ;
 
 //setting up the IP and PORT - mandatory for server to start listening
-app.listen(port,process.env.IP,function(){
+app.listen(process.env.PORT || 5000 ,process.env.IP,function(){
     console.log("server started...");
 });
 
