@@ -16,8 +16,23 @@ var express     = require("express") ,
     User        = require("./models/user"),
 methodOverride  = require("method-override"),
     flash       = require("connect-flash"),
-    auth        = require("./auth") ,
     seedDb      = require("./seeds") ;
+
+//requiring routes
+var commentRoutes     = require("./routes/comments.js") ,
+    campgroundRoutes = require("./routes/campgrounds.js"),
+    indexRoutes        = require("./routes/index.js") ;
+
+var url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp" ;
+
+mongoose.connect(url) ;
+
+app.use(bodyParser.urlencoded( {extended : true} ) );
+app.set("view engine" , "ejs");
+
+//for using custom stylesheets
+
+//seedDb() ;    //seeding all the data
 
 // local strategy
 passport.use(new LocalStrategy(User.authenticate() )) ;
@@ -37,9 +52,9 @@ passport.use(new LocalStrategy(User.authenticate() )) ;
 
 //twitter strategy
 passport.use(new TwitterStrategy({
-        consumerKey: auth.twitter.consumerKey,
-        consumerSecret: auth.twitter.consumerSecret,
-        callbackURL: auth.twitter.callbackURL
+        consumerKey: process.env.twitter_key,
+        consumerSecret: process.env.twitter_secret,
+        callbackURL: "https://post-your-yelpcamps.herokuapp.com/auth/twitter/callback"
     },
     function(accessToken, refreshToken, profile, done) {
         process.nextTick(function () {
@@ -50,9 +65,9 @@ passport.use(new TwitterStrategy({
 
 // github strategy
 passport.use(new GithubStrategy({
-        clientID: auth.github.clientID,
-        clientSecret: auth.github.clientSecret,
-        callbackURL: auth.github.callbackURL
+        clientID: process.env.github_key,
+        clientSecret: process.env.github_secret,
+        callbackURL: "https://post-your-yelpcamps.herokuapp.com/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
         process.nextTick(function () {
@@ -63,9 +78,9 @@ passport.use(new GithubStrategy({
 
 // google strategy
 passport.use(new GoogleStrategy({
-        clientID: auth.google.clientID,
-        clientSecret: auth.google.clientSecret,
-        callbackURL: auth.google.callbackURL,
+        clientID: process.env.google_key,
+        clientSecret: process.env.google_secret,
+        callbackURL: 'https://post-your-yelpcamps.herokuapp.com/auth/google/callback',
         passReqToCallback: true
     },
     function(request, accessToken, refreshToken, profile, done) {
@@ -74,23 +89,6 @@ passport.use(new GoogleStrategy({
         });
     }
 ));
-
-
-//requiring routes    
-var commentRoutes     = require("./routes/comments.js") ,
-    campgroundRoutes = require("./routes/campgrounds.js"),
-    indexRoutes        = require("./routes/index.js") ;
-    
-var url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp" ;
-
-mongoose.connect(url) ;
-
-app.use(bodyParser.urlencoded( {extended : true} ) );
-app.set("view engine" , "ejs");
-
-//for using custom stylesheets
-
-//seedDb() ;    //seeding all the data
 
 //passport configuration
 app.use(require("express-session")({
@@ -123,7 +121,7 @@ app.use(function(req , res , next){
  app.use("/campgrounds",campgroundRoutes); // it appends "/campgrounds in front of every campground routes in campgrounds.js"
  app.use("/campgrounds/:id/comments",commentRoutes) ; // it appends /campgrounds/:id/comments
  app.use("/",indexRoutes) ;
- 
+
  app.use(methodOverride("_method") ) ;
 
 //setting up the IP and PORT - mandatory for server to start listening
