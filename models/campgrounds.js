@@ -20,7 +20,7 @@ var campgroundSchema = new mongoose.Schema({
                         ref  : "Comment"
                     } 
                ]
-}) ;
+} , {usePushEach : true } ) ;
 
 var Campground = mongoose.model("Campground", campgroundSchema);
 

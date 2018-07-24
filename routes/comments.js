@@ -51,17 +51,22 @@ router.post("/" ,middleware.isLoggedIn, function(req , res){
                 console.log(err) ;
             }
             else{
-                //add username and id to the object
-                  comment.author.id       = req.user._id ;
-                  comment.author.username = req.user.username ;
-                 //save comment
-                  comment.save() ;
-                  
-                //associate the comment with campground's object
-                campground.comments.push(comment);
-                campground.save() ;
-                req.flash("success","You commented on "+ campground.name ) ;
-                res.redirect("/campgrounds/" + campground._id) ;
+
+                    console.log(req.user._id) ;
+                    //add username and id to the object
+                    comment.author.id       = req.user._id ;
+                    comment.author.username = req.user.username ;
+                    //save comment
+                    comment.save() ;
+
+                    //associate the comment with campground's object
+                    campground.comments.push(comment);
+                    campground.save() ;
+
+                    req.flash("success","You commented on "+ campground.name ) ;
+                    res.redirect("/campgrounds/" + campground._id) ;
+
+
             }
             
         })  ; 

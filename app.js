@@ -16,7 +16,12 @@ var express     = require("express") ,
     User        = require("./models/user"),
 methodOverride  = require("method-override"),
     flash       = require("connect-flash"),
+    // auth        = require('./auth') ,   // uncomment this in localhost
     seedDb      = require("./seeds") ;
+
+    mongoose.set('debug', true) ;
+
+
 
 //requiring routes
 var commentRoutes     = require("./routes/comments.js") ,
@@ -25,7 +30,7 @@ var commentRoutes     = require("./routes/comments.js") ,
 
 var url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp" ;
 
-mongoose.connect(url) ;
+mongoose.connect(url , {useMongoClient : true } ) ;
 
 app.use(bodyParser.urlencoded( {extended : true} ) );
 app.set("view engine" , "ejs");
@@ -52,6 +57,8 @@ passport.use(new LocalStrategy(User.authenticate() )) ;
 
 //twitter strategy
 passport.use(new TwitterStrategy({
+        // consumerKey: auth.twitter.consumerKey ,
+        // consumerSecret: auth.twitter.consumerSecret ,
         consumerKey: process.env.twitter_key ,
         consumerSecret: process.env.twitter_secret ,
         callbackURL: "https://post-your-yelpcamps.herokuapp.com/auth/twitter/callback" ,
@@ -66,8 +73,10 @@ passport.use(new TwitterStrategy({
 
 // github strategy
 passport.use(new GithubStrategy({
-        clientID: process.env.github_key,
-        clientSecret: process.env.github_secret,
+        // clientID: auth.github.clientID ,
+        // clientSecret: auth.github.clientSecret ,
+        clientID: process.env.github_key ,
+        clientSecret: process.env.github_secret ,
         callbackURL: "https://post-your-yelpcamps.herokuapp.com/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
@@ -79,8 +88,10 @@ passport.use(new GithubStrategy({
 
 // google strategy
 passport.use(new GoogleStrategy({
-        clientID: process.env.google_key,
-        clientSecret: process.env.google_secret,
+        // clientID: auth.google.clientID ,
+        // clientSecret: auth.google.clientSecret ,
+        clientID: process.env.google_key ,
+        clientSecret: process.env.google_secret ,
         callbackURL: 'https://post-your-yelpcamps.herokuapp.com/auth/google/callback',
         passReqToCallback: true
     },

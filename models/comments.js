@@ -12,6 +12,6 @@ var commentSchema = new mongoose.Schema({
           username: String
      },
      created : {type : Date , default : Date.now }
-});
+} , {usePushEach : true });
 
 module.exports = mongoose.model("Comment" , commentSchema) ;
