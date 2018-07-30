@@ -5,7 +5,8 @@ var express     = require("express") ,
     Campground  = require("./models/campgrounds") ,   //it adds .js implicitly(in front of campgrounds) and also (var Campground) is not a mandatory name
                                                      //all mongodb methods like find() , create() , findById() etc will be called using (var Campground)
                                                      
-    Comment     = require("./models/comments") ,    //it adds .js implicitly(in front of comments) and also (var Comment) is not a mandatory name
+    Comment     = require("./models/comments") ,    //it adds .js implicitly(in front of comments) and also (var Comment)
+    // is not a mandatory name
                                                      //all mongodb methods like find() , create() , findById() etc will be called using (var Comment)  
     passport    = require("passport"),
     LocalStrategy   = require("passport-local") ,
@@ -57,26 +58,46 @@ passport.use(new LocalStrategy(User.authenticate() )) ;
 
 //twitter strategy
 passport.use(new TwitterStrategy({
+
+         // uncomment it before running in local environment
+         //==================================================
         // consumerKey: auth.twitter.consumerKey ,
         // consumerSecret: auth.twitter.consumerSecret ,
+
+        // comment it before running in local environment
+        //=================================================
         consumerKey: process.env.twitter_key ,
         consumerSecret: process.env.twitter_secret ,
+        //=================================================
+
         callbackURL: "https://post-your-yelpcamps.herokuapp.com/auth/twitter/callback" ,
         passReqToCallback: true
     },
     function(accessToken, refreshToken, profile, done) {
-        process.nextTick(function () {
-            return done(null, profile);
+        User.findOrCreate({ twitterId: profile.id }, function (err, user) {
+            return cb(err, user);
         });
+
+        // process.nextTick(function () {
+        //     return done(null, profile);
+        // });
     }
 ));
 
 // github strategy
 passport.use(new GithubStrategy({
+        // uncomment it before running in local environment
+        //==================================================
         // clientID: auth.github.clientID ,
         // clientSecret: auth.github.clientSecret ,
+        //=================================================
+
+
+        // comment it before running in local environment
+        //=================================================
         clientID: process.env.github_key ,
         clientSecret: process.env.github_secret ,
+        //================================================
         callbackURL: "https://post-your-yelpcamps.herokuapp.com/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
@@ -88,10 +109,18 @@ passport.use(new GithubStrategy({
 
 // google strategy
 passport.use(new GoogleStrategy({
+        // uncomment it before running in local environment
+        //==================================================
         // clientID: auth.google.clientID ,
         // clientSecret: auth.google.clientSecret ,
+        //==================================================
+
+        // comment it before running in local environment
+        //=================================================
         clientID: process.env.google_key ,
         clientSecret: process.env.google_secret ,
+        //=================================================
+
         callbackURL: 'https://post-your-yelpcamps.herokuapp.com/auth/google/callback',
         passReqToCallback: true
     },
