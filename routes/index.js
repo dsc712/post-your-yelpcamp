@@ -52,7 +52,7 @@ router.get('/auth/facebook/callback',
 
 router.get('/auth/twitter',
     passport.authenticate('twitter'),
-    function(req, res){});
+    function(req, res){res.redirect('/auth/twitter/callback')});
 
 router.get('/auth/twitter/callback',
     passport.authenticate('twitter', { failureRedirect: '/' }),
